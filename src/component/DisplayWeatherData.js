@@ -35,7 +35,7 @@ class DisplayWeatherData extends React.Component {
                   {this.KelvinToFahrenheit(this.state.data.main.temp)} F
                 </h1>
                 <h1 className="display-6 text-left text-white mt-1">
-                  Pressure: {this.state.data.main.pressure} atm
+                  Pressure: {this.state.data.main.pressure} hpa
                 </h1>
                 <h1 className="display-6 text-left text-white mt-1">
                   Humidity: {this.state.data.main.humidity}%
@@ -49,7 +49,7 @@ class DisplayWeatherData extends React.Component {
                   Cloudiness: {this.state.data.clouds.all}%
                 </h1>
                 <h1 className="display-6 text-right text-white mt-1">
-                  Wind Speed: {this.state.data.wind.speed} mph
+                  Wind Speed: {this.state.data.wind.speed} m/s
                 </h1>
                 <h1 className="display-6 text-right text-white mt-1">
                   Wind Direction: {this.state.data.wind.deg}
