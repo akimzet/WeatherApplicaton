@@ -53,9 +53,6 @@ class FormInput extends React.Component {
           }
           this.props.data(result);
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         error => {
           this.setState({
             isLoaded: true,
@@ -69,7 +66,7 @@ class FormInput extends React.Component {
   render() {
     return (
       <form className="FormCard" onSubmit={this.handleSubmit}>
-        <div className="input-group">
+        <div className="input-group col-sm-3">
           <input
             type="text"
             className="form-control"
