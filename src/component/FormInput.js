@@ -23,8 +23,9 @@ class FormInput extends React.Component {
     let formIsValid = true;
     let errors = {};
     if (this.state.zipcode.length !== 5) {
-      errors.title = "Zipcode must be valid";
+      errors.title = "Zipcode must have 5 digits";
       formIsValid = false;
+      this.props.data(null);
     }
     this.setState({ errors: errors });
     return formIsValid;
@@ -43,6 +44,13 @@ class FormInput extends React.Component {
       .then(response => response.json())
       .then(
         result => {
+          if (result.cod === "404") {
+            let errors = {};
+            errors.title = "Zipcode must exist";
+            this.setState({ errors: errors });
+            this.props.data(null);
+            return;
+          }
           this.props.data(result);
         },
         // Note: it's important to handle errors here
