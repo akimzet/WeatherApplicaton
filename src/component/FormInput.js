@@ -9,49 +9,42 @@ class FormInput extends React.Component {
       errors: {},
       isLoaded: false,
       zipcode: "",
-      ApiKey: "07b0b99ee5bbcb0d401b7a635a2433ec"
+      city: "",
+      state: "",
+      country: "",
+      ApiKey: "KGsj6jfe3ZMwr2tNW"
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleCountry = this.handleCountry.bind(this);
+    this.handleState = this.handleState.bind(this);
+    this.handleCity = this.handleCity.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ zipcode: event.target.value });
+  handleCountry(event) {
+    this.setState({ country: event.target.value });
   }
 
-  courseFormIsValid() {
-    let formIsValid = true;
-    let errors = {};
-    if (this.state.zipcode.length !== 5) {
-      errors.title = "Zipcode must have 5 digits";
-      formIsValid = false;
-      this.props.data(null);
-    }
-    this.setState({ errors: errors });
-    return formIsValid;
+  handleState(event) {
+    this.setState({ state: event.target.value });
+  }
+
+  handleCity(event) {
+    this.setState({ city: event.target.value });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    if (!this.courseFormIsValid()) {
-      return;
-    }
     fetch(
-      `http://api.openweathermap.org/data/2.5/weather?zip=${
-        this.state.zipcode
-      },us&appid=${this.state.ApiKey}`
+      `http://api.airvisual.com/v2/city?city=${this.state.city}&state=${
+        this.state.state
+      }&country=${this.state.country}&key=${this.state.ApiKey}`
     )
       .then(response => response.json())
       .then(
         result => {
-          if (result.cod === "404") {
-            let errors = {};
-            errors.title = "Zipcode must exist";
-            this.setState({ errors: errors });
-            this.props.data(null);
-            return;
+          if (result.status === "success") {
+            this.props.data(result);
           }
-          this.props.data(result);
         },
         error => {
           this.setState({
@@ -69,21 +62,42 @@ class FormInput extends React.Component {
         <div className="input-group col-sm-3">
           <input
             type="text"
+            autoComplete="country-name"
             className="form-control"
-            placeholder="Zip Code"
-            id="zipcode"
-            value={this.state.zipcode}
-            onChange={this.handleChange}
+            placeholder="Country"
+            id="country"
+            value={this.state.country}
+            onChange={this.handleCountry}
           />
-          <div className="input-group-append">
-            <button type="submit" className="btn btn-secondary">
-              Enter
-            </button>
-          </div>
         </div>
-        {this.state.errors.title && (
-          <div className="alert alert-danger">{this.state.errors.title}</div>
-        )}
+        <div className="input-group col-sm-3">
+          <input
+            type="text"
+            autoComplete="address-level2"
+            className="form-control"
+            placeholder="State"
+            id="state"
+            value={this.state.state}
+            onChange={this.handleState}
+          />
+        </div>
+        <div className="input-group col-sm-3">
+          <input
+            type="text"
+            autoComplete="address-level3"
+            className="form-control"
+            placeholder="City"
+            id="city"
+            value={this.state.city}
+            onChange={this.handleCity}
+          />
+        </div>
+        <br />
+        <div className="input-group-append col-sm-3">
+          <button type="submit" className="btn btn-primary">
+            Enter
+          </button>
+        </div>
       </form>
     );
   }

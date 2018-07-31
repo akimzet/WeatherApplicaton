@@ -1,6 +1,6 @@
 import React from "react";
 import FormInput from "./FormInput";
-import DisplayWeatherData from "./DisplayWeatherData";
+import DisplayData from "./DisplayData";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -14,14 +14,23 @@ class HomePage extends React.Component {
     this.setState({ data: childData });
   };
 
+  renderInput() {
+    return (
+      <div className="jumbotron col-sm-12 text-center">
+        <h1>Address</h1>
+        <FormInput data={this.handleData} />
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="container-fluid">
-        <div className="jumbotron">
-          <h1>Zip Code</h1>
-          <FormInput data={this.handleData} />
+        {this.state.data === null ? this.renderInput() : null}
+
+        <div>
+          <DisplayData data={this.state.data} />
         </div>
-        <DisplayWeatherData data={this.state.data} />
         <footer className="py-3 bg-dark" id="footer">
           <div className="container">
             <p className="m-0 text-center text-white">
