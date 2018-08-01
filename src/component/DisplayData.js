@@ -1,7 +1,7 @@
 import React from "react";
 import windImage from "../Images/wind.png";
 import pollutionImage from "../Images/pollution.png";
-import AQIChart from "../Images/AQIChart.png";
+// import AQIChart from "../Images/AQIChart.png";
 
 class DisplayData extends React.Component {
   constructor(props) {
@@ -79,10 +79,34 @@ class DisplayData extends React.Component {
     }
   }
 
+  colorCodeQuality(AQI) {
+    let color = "";
+    if (AQI <= 50) {
+      color = "#008000";
+    }
+    if (AQI > 50 && AQI <= 100) {
+      color = "#FFFF00";
+    }
+    if (AQI > 100 && AQI <= 150) {
+      color = "#FFA500";
+    }
+    if (AQI > 150 && AQI <= 200) {
+      color = "#FF0000";
+    }
+    if (AQI > 200 && AQI <= 300) {
+      color = "#B22222";
+    }
+    if (AQI > 300 && AQI <= 500) {
+      color = "#8B0000";
+    }
+    return color;
+  }
+
   renderAll() {
     const image = require("../Images/" +
       this.state.data.data.current.weather.ic +
       ".png");
+    const aqi = this.state.data.data.current.pollution.aqius;
     return (
       <div>
         <header className="data-header">
@@ -152,11 +176,13 @@ class DisplayData extends React.Component {
                     <h5 className="card-title text-center">Air Quality</h5>
                   </div>
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item">
-                      Air Quality Index:{" "}
-                      {this.state.data.data.current.pollution.aqius}
+                    <li
+                      className="list-group-item"
+                      style={{ backgroundColor: this.colorCodeQuality(aqi) }}
+                    >
+                      Air Quality Index: {aqi}
                     </li>
-                    <li className="list-group-item">
+                    <li className="list-group-item bg-dark text-white">
                       Main Pollutant :{" "}
                       {this.pollutantDesc(
                         this.state.data.data.current.pollution.mainus
@@ -166,11 +192,11 @@ class DisplayData extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="card col-sm-12">
+            {/* <div className="card col-sm-12">
               <div className="aqichart">
                 <img src={AQIChart} alt="Chart" />
               </div>
-            </div>
+            </div> */}
           </div>
         </header>
       </div>

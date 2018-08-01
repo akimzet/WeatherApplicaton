@@ -17,14 +17,45 @@
   margin-right: auto;
 }
 
-.data-header {
-  padding-bottom: 2em;
-  background-image: url("https://images.pexels.com/photos/314726/pexels-photo-314726.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
-  height: 100%; 
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+@media only screen and (max-width: 1600px) {
+  .data-header {
+    padding-bottom: 13em;
+    background-image: url("https://images.pexels.com/photos/314726/pexels-photo-314726.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .col-sm-12 {
+    padding-bottom: 5em;
+  }
+
+  .row {
+    padding-top: 0em
+  }
 }
+
+@media only screen and (min-width: 1600px) {
+  .data-header {
+    padding-bottom: 24em;
+    background-image: url("https://images.pexels.com/photos/314726/pexels-photo-314726.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .col-sm-12 {
+    padding-bottom: 5em;
+  }
+
+  .row {
+    padding-top: 5em
+  }
+}
+
+
 
 .container-fluid {
   padding-right: 0;
@@ -49,4 +80,11 @@
 
 .card.col-sm-12 {
   margin-top: 20px;
+}
+
+.py-3 {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
