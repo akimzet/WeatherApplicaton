@@ -1,12 +1,12 @@
 /* Import statements */
 import React from "react";
+import toastr from "toastr";
 
 class FormInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       error: null,
-      errors: {},
       isLoaded: false,
       zipcode: "",
       city: "",
@@ -44,6 +44,8 @@ class FormInput extends React.Component {
         result => {
           if (result.status === "success") {
             this.props.data(result);
+          } else {
+            toastr.error("Address is not valid.");
           }
         },
         error => {

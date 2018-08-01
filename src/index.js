@@ -10,6 +10,8 @@ import App from "./component/App";
 import { BrowserRouter } from "react-router-dom";
 
 /* import CSS Styles */
+import "../src/styles/styles.css";
+import "../node_modules/toastr/build/toastr.min.css";
 
 ReactDOM.render(
   <BrowserRouter>

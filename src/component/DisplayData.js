@@ -7,12 +7,23 @@ class DisplayData extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: this.props.data
+      data: this.props.data,
+      isHovering: false
     };
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({ data: nextProps.data });
+  }
+
+  handleMouseHover() {
+    this.setState(this.toggleHoverState);
+  }
+
+  toggleHoverState(state) {
+    return {
+      isHovering: !state.isHovering
+    };
   }
 
   KelvinToFahrenheit(Celsius) {
@@ -182,7 +193,11 @@ class DisplayData extends React.Component {
                     >
                       Air Quality Index: {aqi}
                     </li>
-                    <li className="list-group-item bg-dark text-white">
+                    <li
+                      className="list-group-item bg-dark text-white"
+                      onMouseEnter={this.handleMouseHover}
+                      onMouseLeave={this.handleMouseHover}
+                    >
                       Main Pollutant :{" "}
                       {this.pollutantDesc(
                         this.state.data.data.current.pollution.mainus
